@@ -10,35 +10,43 @@
     <form>
         <button class="button home-button" formaction="/logout"> Log out</button>
     </form>
+    <a href="/create-new-task">Create a new task!</a>
+    <a href="/create-new-tag">Create a new tag!</a>
 
-    <table class="table">
+    <table class="table table-hover">
         <thead>
           <tr>
-            <th scope="col">Deadline</th>
+            <th scope="col">Due date</th>
             <th scope="col">Title</th>
-            <th scope="col">tags</th>
+            <th scope="col">Status</th>
+            <th scope="col">Tags</th>
             <!-- <th scope="col">Handle</th> -->
           </tr>
         </thead>
         <tbody>
           <tr>
             <!-- <th scope="row">1</th> -->
-            <td>Mark</td>
-            <td>Otto</td>
+            <td>12:56</td>
+            <td>Read ch. 6 of econ textbook</td>
             <td>
-                <span>school</span>
+                <span class="badge bg-primaryary status-in-progress">In progess</span>
             </td>
           </tr>
           <tr>
             <!-- <th scope="row">2</th> -->
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
+            <td>5:30</td>
+            <td>Finish math classwork</td>
+            <td>
+                <span class="badge bg-primaryary status-completed">Completed</span>
+            </td>
           </tr>
           <tr>
-            <!-- <th scope="row">3</th> -->
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
+            <!-- <th scope="row">2</th> -->
+            <td>7:45</td>
+            <td>Zoom meeting</td>
+            <td>
+                <span class="badge bg-primaryary status-not-started">Not started</span>
+            </td>
           </tr>
         </tbody>
       </table>

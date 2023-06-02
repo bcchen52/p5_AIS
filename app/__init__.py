@@ -15,14 +15,30 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-@app.route('/home', methods=['GET','POST'])
-@login_required
+@app.route('/', methods=['GET','POST'])
+# @login_required
 def home():
+    if session.get('username') is None:
+        return render_template('landing.html')
     return render_template('home.html',username=session.get('username'))
 
-@app.route('/', methods=['GET'])
-def landing():
-    return render_template('landing.html')
+@app.route('/create-new-task', methods=['GET','POST'])
+@login_required
+def add_task():
+    # if request.method == 'POST':
+    #     print(f'{request.form = }')
+    return render_template('create-task.html')
+
+@app.route('/create-new-tag', methods=['GET','POST'])
+# @login_required
+def add_tag():
+    # if request.method == 'POST':
+    #     print(f'{request.form = }')
+    return render_template('create-tag.html')
+
+# @app.route('/', methods=['GET'])
+# def landing():
+#     return render_template('landing.html')
 
 
 @app.route('/login', methods=['GET','POST'])
@@ -35,7 +51,7 @@ def login():
         correct_credentials = check_credentials(username, password)
         if correct_credentials:
             session['username'] = username
-            return redirect('/home')
+            return redirect('/')
         else:
             return render_template('login.html', error = True)
     return render_template('login.html')

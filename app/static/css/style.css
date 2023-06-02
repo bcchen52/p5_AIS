@@ -1,0 +1,18 @@
+/* body {
+    background-color: black;
+} */
+
+.status-in-progress {
+    /* background-color: rgb(255, 165, 0); */
+    background-color: rgb(255, 173, 42);
+}
+
+.status-completed {
+    background-color: rgb(80, 186, 70);
+    /* opacity: 50%; */
+}
+
+.status-not-started {
+    background-color: rgb(92, 145, 229);
+    /* color: black; */
+}
