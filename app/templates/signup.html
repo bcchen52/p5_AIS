@@ -19,6 +19,10 @@
         <div class="alert alert-danger" role="alert">
             The username already used
         </div>
+        {% elif confirmation%}
+        <div class="alert alert-danger" role="alert">
+            Passwords don't match
+        </div>
         {% endif %}
         <br>
         Signing up for an account will allow you play games and compete with others

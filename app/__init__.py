@@ -45,7 +45,10 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        confirmation = request.form['confirmation']
         # print(request.form)
+        if password != confirmation:
+            return render_template('signup.html', confirmation=True)
         db_table_inits()
         added_user = add_user(username, password)
         if added_user:
