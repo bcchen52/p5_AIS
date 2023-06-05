@@ -34,6 +34,12 @@ mayaM -- 2023-06-02 17:50
 ==============================================================
 mayaM -- 2023-06-05 10:10
 --------------------------------------------------------------
-- worked on displaying different colored tags using CSS and HTML
+- worked on displaying different colored tags using CSS and 
+HTML
 - started on HTML to display tasks
+==============================================================
+mayaM -- 2023-06-05 10:10
+--------------------------------------------------------------
+- made simple navbar
+- tags don't split when browser window is thin
 ==============================================================
