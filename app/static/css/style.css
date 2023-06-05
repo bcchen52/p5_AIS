@@ -2,6 +2,10 @@
     background-color: black;
 } */
 
+.main-body {
+    margin-top: 5%;
+}
+
 .status-in-progress {
     /* background-color: rgb(255, 165, 0); */
     background-color: rgb(255, 173, 42);
@@ -22,23 +26,37 @@
     text-decoration: none;
 }
 
-.tag {
-    width: 75px;
-    height: 1.2em;
+.logout, .logout:hover {
+    color: var(--bs-danger-text-emphasis);
 }
 
-.tag-span {
-    /* background-color: aquamarine; */
+.dropdown-username {
+    color: white;
+}
+
+
+/* .tag {
+    width: 75px;
+    height: 1.2em;
+} */
+
+.tag {
     border-radius: 1em;
-    padding: 0.2em 0.6em 0.2em 0.6em;
+    padding: 0.1em 0.6em 0.1em 0.6em;
     border-style: solid;
     border-width: 2px;
     border-color: black;
     margin: 5px;
+    float: left;
+
+    color: black;
+    text-decoration: none;
+    font-size: 0.9em;
 }
 
-.tag-span:hover {
+.tag:hover {
     opacity: 0.7;
+    color: black;
 }
 
 .red-tag {
@@ -57,7 +75,7 @@
 }
 
 .green-tag {
-    background-color: rgb(175, 255, 128);
+    background-color: rgb(170, 229, 136);
     border-color: var(--bs-green);
 }
 
@@ -69,14 +87,4 @@
 .purple-tag {
     background-color: rgb(216, 182, 255);
     border-color: var(--bs-purple);
-}
-
-.link-tag {
-    color: black;
-    text-decoration: none;
-    font-size: 0.9em;
-}
-
-.link-tag:hover {
-    color: black;
 }
