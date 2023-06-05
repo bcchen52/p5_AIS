@@ -15,7 +15,7 @@ def db_close():
 
 def db_table_inits():
     c = db_connect()
-    c.execute("CREATE TABLE IF NOT EXISTS users (username text, password text)")
+    c.execute("CREATE TABLE IF NOT EXISTS users (user_id integer primary key, username text, password text)")
     db_close()
 
 def check_if_username_avaliable(username):
@@ -41,6 +41,37 @@ def check_credentials(username, password):
     # print(username_status)
     return username_status != None
 
+def db_tags_inits():
+    c = db_connect()
+    c.execute("CREATE TABLE IF NOT EXISTS tags (row_id integer primary key, user_id integer, name text, color text)")
+    db_close()
+
+def db_tasks_inits():
+    c = db_connect()
+    c.execute("CREATE TABLE IF NOT EXISTS tasks (row_id integer primary key, user_id integer, title text, description text, status text, date text, tag_ids text)")
+    db_close()
+
+def get_user_id(username):
+    c = db_connect()
+    c.execute('SELECT user_id FROM users WHERE username=?',(username,))
+    user_id = c.fetchone()
+    return user_id
+
+
+def check_tag(username, tag_name):
+    c = db_connect()
+    user_id = get_user_id(username)
+    c.execute('SELECT name FROM tags WHERE user_id=?',(user_id,))
+    tag_status = c.fetchone()
+    db_close()
+    return tag_status == None
+
+def create_tag(username, tag_name):
+    pass
+    
+
 
 if __name__ == '__main__':
     db_table_inits()
+    db_tags_inits()
+    db_tasks_inits()
