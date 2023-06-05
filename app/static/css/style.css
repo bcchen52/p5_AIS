@@ -25,7 +25,7 @@
 .tag-span {
     /* background-color: aquamarine; */
     border-radius: 1em;
-    padding: 0.3em 0.6em 0.3em 0.6em;
+    padding: 0.2em 0.6em 0.2em 0.6em;
     border-style: solid;
     border-width: 2px;
     border-color: black;
@@ -33,8 +33,33 @@
 }
 
 .red-tag {
-    background-color: rgb(255, 128, 128);
-    border-color: red;
+    background-color: rgb(255, 147, 147);
+    border-color: var(--bs-red);
+}
+
+.orange-tag {
+    background-color: rgb(255, 204, 128);
+    border-color: var(--bs-orange);
+}
+
+.yellow-tag {
+    background-color: rgb(255, 244, 128);
+    border-color: var(--bs-yellow);
+}
+
+.green-tag {
+    background-color: rgb(175, 255, 128);
+    border-color: var(--bs-green);
+}
+
+.blue-tag {
+    background-color: rgb(128, 211, 255);
+    border-color: var(--bs-blue);
+}
+
+.purple-tag {
+    background-color: rgb(195, 144, 253);
+    border-color: var(--bs-purple);
 }
 
 .link-tag {

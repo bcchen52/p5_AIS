@@ -32,3 +32,8 @@ mayaM -- 2023-06-02 17:50
 - added HTML for creating a new task and tag
 - some CSS and Bootstrap added to make task list look better
 ==============================================================
+mayaM -- 2023-06-05 10:10
+--------------------------------------------------------------
+- worked on displaying different colored tags using CSS and HTML
+- started on HTML to display tasks
+==============================================================

@@ -29,6 +29,23 @@ def add_task():
     #     print(f'{request.form = }')
     return render_template('create-task.html')
 
+@app.route('/tasks/<task_id>/edit', methods=['GET','POST'])
+@login_required
+def edit_task(task_id):
+    # if request.method == 'POST':
+    #     print(f'{request.form = }')
+    return render_template('edit-task.html',task_id=task_id)
+
+@app.route('/tasks/<task_id>', methods=['GET','POST'])
+@login_required
+def view_task(task_id):
+    # if request.method == 'POST':
+    #     print(f'{request.form = }')
+    title = 'test task'
+    # description = 'this is a test task\nafter a newline'
+    description = ['this is a test task','after a newline']
+    return render_template('view-task.html',title=title,description=description)
+
 @app.route('/create-new-tag', methods=['GET','POST'])
 # @login_required
 def add_tag():
