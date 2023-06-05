@@ -17,6 +17,11 @@
     /* color: black; */
 }
 
+.task-title {
+    color: black;
+    text-decoration: none;
+}
+
 .tag {
     width: 75px;
     height: 1.2em;
@@ -30,6 +35,10 @@
     border-width: 2px;
     border-color: black;
     margin: 5px;
+}
+
+.tag-span:hover {
+    opacity: 0.7;
 }
 
 .red-tag {
@@ -58,7 +67,7 @@
 }
 
 .purple-tag {
-    background-color: rgb(195, 144, 253);
+    background-color: rgb(216, 182, 255);
     border-color: var(--bs-purple);
 }
 
@@ -66,4 +75,8 @@
     color: black;
     text-decoration: none;
     font-size: 0.9em;
+}
+
+.link-tag:hover {
+    color: black;
 }

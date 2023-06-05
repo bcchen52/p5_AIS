@@ -9,75 +9,79 @@
 </head>
 
 <body>
-  <h1>Welcome back, {{username}}!</h1>
-  <form>
-    <button class="button home-button" formaction="/logout"> Log out</button>
-  </form>
-  <a href="/create-new-task">Create a new task!</a>
-  <a href="/create-new-tag">Create a new tag!</a>
+  <div class="container">
+    <div class="container">
+      <h1>Welcome back, {{username}}!</h1>
+      <form>
+        <button class="button home-button" formaction="/logout"> Log out</button>
+      </form>
+      <a href="/create-new-task">Create a new task!</a>
+      <a href="/create-new-tag">Create a new tag!</a>
 
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col">Due date</th>
-        <th scope="col">Title</th>
-        <th scope="col">Status</th>
-        <th scope="col">Tags</th>
-        <!-- <th scope="col">Handle</th> -->
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <!-- <th scope="row">1</th> -->
-        <td>12:56</td>
-        <td>Read ch. 6 of econ textbook</td>
-        <td>
-          <span class="badge bg-primaryary status-in-progress">In progess</span>
-        </td>
-        <td>
-          <span class="tag-span red-tag">
-            <a href="/create-new-tag" class="link-tag">just-link</a></span>
-          <span class="tag-span">
-            <a href="/create-new-tag" class="link-tag">no-color</a>
-          </span>
-        </td>
-      </tr>
-      <tr>
-        <!-- <th scope="row">2</th> -->
-        <td>5:30</td>
-        <td>Finish math classwork</td>
-        <td>
-          <span class="badge bg-primaryary status-completed">Completed</span>
-        </td>
-        <td>
-          <span class="tag-span orange-tag">
-            <a href="/create-new-tag" class="link-tag">orange</a></span>
-          <span class="tag-span yellow-tag">
-            <a href="/create-new-tag" class="link-tag">yellow</a>
-          </span>
-        </td>
-      </tr>
-      <tr>
-        <!-- <th scope="row">2</th> -->
-        <td>7:45</td>
-        <td>Zoom meeting</td>
-        <td>
-          <span class="badge bg-primaryary status-not-started">Not started</span>
-        </td>
-        <td>
-          <span class="tag-span green-tag">
-            <a href="/create-new-tag" class="link-tag">green</a>
-          </span>
-          <span class="tag-span blue-tag">
-            <a href="/create-new-tag" class="link-tag">blue</a>
-          </span>
-          <span class="tag-span purple-tag">
-            <a href="/create-new-tag" class="link-tag">purple</a>
-          </span>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Due date</th>
+            <th scope="col">Title</th>
+            <th scope="col">Status</th>
+            <th scope="col">Tags</th>
+            <!-- <th scope="col">Handle</th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr id="1">
+            <!-- <th scope="row">1</th> -->
+            <td>12:56</td>
+            <td><a href="/tasks/1" class="task-title">Read ch. 6 of econ textbook</a></td>
+            <td>
+              <span class="badge bg-primaryary status-in-progress">In progess</span>
+            </td>
+            <td>
+              <span class="tag-span red-tag">
+                <a href="/create-new-tag" class="link-tag">just-link</a></span>
+              <span class="tag-span">
+                <a href="/create-new-tag" class="link-tag">no-color</a>
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <!-- <th scope="row">2</th> -->
+            <td>5:30</td>
+            <td>Finish math classwork</td>
+            <td>
+              <span class="badge bg-primaryary status-completed">Completed</span>
+            </td>
+            <td>
+              <span class="tag-span orange-tag">
+                <a href="/create-new-tag" class="link-tag">orange</a></span>
+              <span class="tag-span yellow-tag">
+                <a href="/create-new-tag" class="link-tag">yellow</a>
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <!-- <th scope="row">2</th> -->
+            <td>7:45</td>
+            <td>Zoom meeting</td>
+            <td>
+              <span class="badge bg-primaryary status-not-started">Not started</span>
+            </td>
+            <td>
+              <span class="tag-span green-tag">
+                <a href="/create-new-tag" class="link-tag">green</a>
+              </span>
+              <span class="tag-span blue-tag">
+                <a href="/create-new-tag" class="link-tag">blue</a>
+              </span>
+              <span class="tag-span purple-tag">
+                <a href="/create-new-tag" class="link-tag">purple</a>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </body>
 
 </html>
