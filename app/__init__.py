@@ -53,9 +53,22 @@ def add_tag():
     #     print(f'{request.form = }')
     return render_template('create-tag.html')
 
-# @app.route('/', methods=['GET'])
-# def landing():
-#     return render_template('landing.html')
+
+@app.route('/tags', methods=['GET'])
+# @login_required
+def tag_list():
+    # if request.method == 'POST':
+    #     print(f'{request.form = }')
+    tags = [(0,'red','school'),(1,'purple','purple'),(2,'','home'),(3,'orange','orange')]
+    return render_template('tags.html',tags=tags)
+
+@app.route('/tags/<tag_id>/edit', methods=['GET','POST'])
+# @login_required
+def edit_tag(tag_id):
+    # Later, when sqlite is done
+    # tag_info = get_tag_info(tag_id)
+    tag_info = (tag_id,'blue','some-tag')
+    return render_template('edit-tag.html',tag_info=tag_info)
 
 
 @app.route('/login', methods=['GET','POST'])

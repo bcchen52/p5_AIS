@@ -3,17 +3,17 @@ var showSampleTag = () => {
     var selectedColor = e.options[e.selectedIndex].value;
     console.log(selectedColor);
 
-    var tag = document.getElementById("sample-tag");
-    var tagText = document.getElementById("tag-text");
+    var tag = document.getElementById("tag");
+    // var tagText = document.getElementById("tag-");
     var newTagName = document.getElementById("tag-name");
 
     if (selectedColor != "") {
-        tag.className = "tag-span " + selectedColor +"-tag";
+        tag.className = "tag " + selectedColor +"-tag";
     } else {
-        tag.className = "tag-span";
+        tag.className = "tag";
     }
 
-    tagText.innerHTML = newTagName.value;
+    tag.innerHTML = newTagName.value;
 };
 
 let results = document.getElementById("tag-color");
