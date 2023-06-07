@@ -38,8 +38,14 @@ mayaM -- 2023-06-05 10:10
 HTML
 - started on HTML to display tasks
 ==============================================================
-mayaM -- 2023-06-05 10:10
+mayaM -- 2023-06-06 10:10
 --------------------------------------------------------------
 - made simple navbar
 - tags don't split when browser window is thin
+==============================================================
+mayaM -- 2023-06-07 10:04
+--------------------------------------------------------------
+- stared on sqlite for tags
+- user can update and edit tags
+- homepage displays all tags in filters
 ==============================================================
