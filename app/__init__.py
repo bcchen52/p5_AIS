@@ -21,7 +21,8 @@ def login_required(f):
 def home():
     if session.get('username') is None:
         return render_template('landing.html')
-    return render_template('home.html',username=session.get('username'))
+    tags = [(0,'red','school'),(1,'purple','purple'),(2,'','home'),(3,'orange','orange')]
+    return render_template('home.html',username=session.get('username'),tags=tags)
 
 @app.route('/create-new-task', methods=['GET','POST'])
 # @login_required

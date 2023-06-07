@@ -56,9 +56,9 @@
             {% set color = tag_info[1] %}
             {% set name = tag_info[2] %}
 
-            <label for="tag-name">Tag name (max 20 chars)</label>
+            <label for="tag-name">Tag name (max 25 chars)</label>
             <br>
-            <input type="text" name="tag-name" id="tag-name" maxlength="20" required>
+            <input type="text" name="tag-name" id="tag-name" maxlength="25" required>
             <br><br>
 
             <label for="color">Color: </label>
@@ -72,14 +72,14 @@
                 <option value="purple">purple</option>
             </select>
             <br><br>
-
+            <p>Tag preview</p>
+            <div class="container">
+                <a id="tag" class="tag {{color}}-tag">{{name}}</a>
+            </div>
+            <br><br><br>
             <input id="submit" type="submit" name="sub1" value="Submit">
         </form>
         <br>
-        <p>Tag preview</p>
-        <div class="container">
-            <a id="tag" class="tag {{color}}-tag">{{name}}</a>
-        </div>
     </div>
 </body>
 
