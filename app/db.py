@@ -16,6 +16,7 @@ def db_close():
 def db_table_inits():
     c = db_connect()
     c.execute("CREATE TABLE IF NOT EXISTS users (user_id integer primary key, username text, password text)")
+    c.execute("CREATE TABLE IF NOT EXISTS tags (user_id integer, color text, name text)")
     db_close()
 
 def check_if_username_avaliable(username):
@@ -41,10 +42,10 @@ def check_credentials(username, password):
     # print(username_status)
     return username_status != None
 
-def db_tags_inits():
-    c = db_connect()
-    c.execute("CREATE TABLE IF NOT EXISTS tags (user_id integer, name text, color text)")
-    db_close()
+# def db_tags_inits():
+#     c = db_connect()
+#     c.execute("CREATE TABLE IF NOT EXISTS tags (user_id integer, name text, color text)")
+#     db_close()
 
 def db_tasks_inits():
     c = db_connect()
@@ -63,23 +64,17 @@ def make_task(username, title, description, date, tag_id):
     c.execute("insert into tags values (?,?,?,?,?,?)",(user_id, title, description, "incomplete", date, tag_id))
     db_close()
 
-#def edit_task(tag_name,):
-
-'''
-def get_tag_id(tag_name):
-    c = db_connect()
-    c.execute('SELECT rowid FROM tags WHERE name=?',(tag_name))
-    user_id = c.fetchone()
-    return tag_id
-    '''
-
 
 def get_user_id(username):
     c = db_connect()
     c.execute('SELECT rowid FROM users WHERE username=?',(username,))
-    user_id = c.fetchone()
+    user_id = int(c.fetchone()[0])
+    # print(user_id)
     return user_id
 
+
+
+##################### TAGS ########################
 
 def check_tag(username, tag_name):
     c = db_connect()
@@ -89,12 +84,42 @@ def check_tag(username, tag_name):
     db_close()
     return tag_status == None
 
-def create_tag(username, tag_name):
-    pass
+def create_tag(username,color,name):
+    user_id = get_user_id(username)
+    c = db_connect()
+    c.execute('INSERT INTO tags VALUES (?,?,?)', (user_id,color,name))
+    db_close()
+
+def update_tag(color,name,tag_id):
+    # user_id = get_user_id(username)
+    c = db_connect()
+    c.execute('UPDATE tags SET color=?,name=? WHERE rowid=?', (color,name,tag_id))
+    db_close()
+
+def get_all_tags(username):
+    '''gets tag_id, color, name for '''
+    c = db_connect()
+    c.execute('SELECT rowid,color,name FROM tags WHERE user_id=?',(get_user_id(username),))
+    # tags = c.fetchone()
+    tags = c.fetchall()
+    db_close()
+    # print(tags)
+    return tags
+
+def get_tag_info(tag_id):
+    c = db_connect()
+    c.execute('SELECT * FROM tags WHERE rowid=?',(tag_id,))
+    tag_info = c.fetchone()
+    db_close()
+    return tag_info
     
 
 
 if __name__ == '__main__':
     db_table_inits()
-    db_tags_inits()
-    db_tasks_inits()
+    # create_tag('a','purple','added-from-func2')
+    # print(get_all_tags('a'))
+    # print(get_tag_info(3))
+    # print(get_tag_info(4))
+
+    # update_tag('green','green-tag',5)

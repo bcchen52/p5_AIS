@@ -5,6 +5,7 @@ from secrets import token_bytes
 
 app = Flask(__name__)
 app.secret_key = token_bytes(32)
+# app.secret_key = 'foo'
 
 
 def login_required(f):
@@ -19,10 +20,12 @@ def login_required(f):
 @app.route('/', methods=['GET','POST'])
 # @login_required
 def home():
+    username = session.get('username')
     if session.get('username') is None:
         return render_template('landing.html')
-    tags = [(0,'red','school'),(1,'purple','purple'),(2,'','home'),(3,'orange','orange')]
-    return render_template('home.html',username=session.get('username'),tags=tags)
+    # tags = [(0,'red','school'),(1,'purple','purple'),(2,'','home'),(3,'orange','orange')]
+    tags = get_all_tags(username)
+    return render_template('home.html',username=username,tags=tags)
 
 @app.route('/create-new-task', methods=['GET','POST'])
 # @login_required
@@ -49,22 +52,35 @@ def view_task(task_id):
 @app.route('/create-new-tag', methods=['GET','POST'])
 # @login_required
 def add_tag():
-    return render_template('create-tag.html',username=session.get('username'))
+    username=session.get('username')
+    if request.method == 'POST':
+        tag_name = request.form['tag-name']
+        color = request.form['color']
+        create_tag(username,color,tag_name)
+        return redirect('/')
+    return render_template('create-tag.html',username=username)
 
 
 @app.route('/tags', methods=['GET'])
 # @login_required
 def tag_list():
-    tags = [(0,'red','school'),(1,'purple','purple'),(2,'','home'),(3,'orange','orange')]
-    return render_template('tags.html',tags=tags,username=session.get('username'))
+    username=session.get('username')
+    # tags = [(0,'red','school'),(1,'purple','purple'),(2,'','home'),(3,'orange','orange')]
+    tags = get_all_tags(username)
+    return render_template('tags.html',tags=tags,username=username)
 
 @app.route('/tags/<tag_id>/edit', methods=['GET','POST'])
 # @login_required
 def edit_tag(tag_id):
-    # Later, when sqlite is done
-    # tag_info = get_tag_info(tag_id)
-    tag_info = (tag_id,'purple','some-tag')
-    return render_template('edit-tag.html',tag_info=tag_info,username=session.get('username'))
+    username=session.get('username')
+    if request.method == 'POST':
+        tag_name = request.form['tag-name']
+        color = request.form['color']
+        update_tag(color,tag_name,tag_id)
+        return redirect('/')
+    tag_info = get_tag_info(tag_id)
+    # tag_info = (tag_id,'purple','some-tag')
+    return render_template('edit-tag.html',tag_info=tag_info,username=username)
 
 
 @app.route('/login', methods=['GET','POST'])
