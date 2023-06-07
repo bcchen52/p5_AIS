@@ -48,12 +48,18 @@ def db_tags_inits():
 
 def db_tasks_inits():
     c = db_connect()
-    c.execute("CREATE TABLE IF NOT EXISTS tasks (row_id integer primary key, user_id integer, title text, description text, status text, date text, tag_ids text)")
+    c.execute("CREATE TABLE IF NOT EXISTS tasks (user_id integer, title text, description text, status text, date text, tag_ids text)")
+    db_close()
+
+def get_tasks(username):
+    c = db_connect()
+    user_id = get_user_id(username)
+    c.execute("SELECT * from tasks where user_id = ?",(user_id))
     db_close()
 
 def get_user_id(username):
     c = db_connect()
-    c.execute('SELECT user_id FROM users WHERE username=?',(username,))
+    c.execute('SELECT rowid FROM users WHERE username=?',(username,))
     user_id = c.fetchone()
     return user_id
 
