@@ -43,7 +43,7 @@ def check_credentials(username, password):
 
 def db_tags_inits():
     c = db_connect()
-    c.execute("CREATE TABLE IF NOT EXISTS tags (row_id integer primary key, user_id integer, name text, color text)")
+    c.execute("CREATE TABLE IF NOT EXISTS tags (user_id integer, name text, color text)")
     db_close()
 
 def db_tasks_inits():
@@ -56,6 +56,23 @@ def get_tasks(username):
     user_id = get_user_id(username)
     c.execute("SELECT * from tasks where user_id = ?",(user_id))
     db_close()
+
+def make_task(username, title, description, date, tag_id):
+    c = db_connect()
+    user_id = get_user_id(username)
+    c.execute("insert into tags values (?,?,?,?,?,?)",(user_id, title, description, "incomplete", date, tag_id))
+    db_close()
+
+#def edit_task(tag_name,):
+
+'''
+def get_tag_id(tag_name):
+    c = db_connect()
+    c.execute('SELECT rowid FROM tags WHERE name=?',(tag_name))
+    user_id = c.fetchone()
+    return tag_id
+    '''
+
 
 def get_user_id(username):
     c = db_connect()
