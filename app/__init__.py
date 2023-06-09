@@ -27,7 +27,8 @@ def home():
         return render_template('landing.html')
     # tags = [(0,'red','school'),(1,'purple','purple'),(2,'','home'),(3,'orange','orange')]
     tags = get_all_tags(username)
-    return render_template('home.html',username=username,tags=tags)
+    tasks = get_all_tasks(username)
+    return render_template('home.html',username=username,tags=tags,tasks=tasks)
 
 def get_tag_csv(tag_ids):
     csv_str = ''

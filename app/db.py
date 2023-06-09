@@ -61,11 +61,26 @@ user_id, title, description, status,
 year, month, day, hour, min, tags
 '''
 
-def get_tasks(username):
+STATUS_NAMES = ['not started','in progress','completed']
+STATUS_CLASSES = ['not-started','in-progress','completed']
+
+def get_all_tasks(username):
     c = db_connect()
     user_id = get_user_id(username)
-    c.execute("SELECT * from tasks where user_id = ?",(user_id))
+    c.execute("SELECT rowid,* from tasks where user_id=? ORDER BY year,month,day,hour,min",(user_id,))
+    raw_tasks = c.fetchall()
     db_close()
+    tasks = []
+    for row in raw_tasks:
+        task_dict = dict()
+        task_dict['task_id'] = row[0]
+        task_dict['title'] = row[2]
+        task_dict['status-name'] = STATUS_NAMES[row[4]]
+        task_dict['status-class'] = STATUS_CLASSES[row[4]]
+        task_dict['due-date'] = f'{row[5]}-{row[6]}-{row[7]} {row[8]}:{row[9]}'
+        task_dict['tags'] = get_tags_from_csv(row[10])
+        tasks.append(task_dict)
+    return tasks
 
 # format: YYYY-MM-DDThh:mm
 def get_timestamp_tuple(timestamp_str):
@@ -108,6 +123,14 @@ def update_tag(color,name,tag_id):
     c.execute('UPDATE tags SET color=?,name=? WHERE rowid=?', (color,name,tag_id))
     db_close()
 
+def get_tags_from_csv(tags_csv):
+    tags = []
+    str_tag_ids = tags_csv.split(',')
+    # print(str_tag_ids)
+    for str_tag_id in str_tag_ids:
+        tags.append(get_tag_info(int(str_tag_id)))
+    return tags
+
 def get_all_tags(username):
     '''gets tag_id, color, name for '''
     c = db_connect()
@@ -120,7 +143,7 @@ def get_all_tags(username):
 
 def get_tag_info(tag_id):
     c = db_connect()
-    c.execute('SELECT * FROM tags WHERE rowid=?',(tag_id,))
+    c.execute('SELECT rowid,color,name FROM tags WHERE rowid=?',(tag_id,))
     tag_info = c.fetchone()
     db_close()
     return tag_info
@@ -136,8 +159,11 @@ if __name__ == '__main__':
 
     # update_tag('green','green-tag',5)
 
-    print(get_timestamp_tuple('2017-06-01T08:30'))
-    print(get_timestamp_tuple('2023-06-09T01:14'))
+    # print(get_timestamp_tuple('2017-06-01T08:30'))
+    # print(get_timestamp_tuple('2023-06-09T01:14'))
+
+    print(get_all_tasks('a'))
+    # print(get_tags_from_csv('1,2'))
 
     # username = 'a'
     # user_id = get_user_id(username)

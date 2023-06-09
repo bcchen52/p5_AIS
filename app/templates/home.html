@@ -90,7 +90,30 @@
           </tr>
         </thead>
         <tbody>
-          <tr id="1">
+          {% for task in tasks %}
+          {% set status_class = task['status-class'] %}
+          {% set tags = task['tags'] %}
+          <tr>
+            <!-- <th scope="row">2</th> -->
+            <!-- <p>{{task}}</p> -->
+            <td>{{task['due-date']}}</td>
+            <td>{{task['title']}}</td>
+            <td>
+              <span class="badge bg-primaryary status-{{status_class}}">{{task['status-name']}}</span>
+            </td>
+            <td>
+              {% for tag_info in tags %}
+              {% set id = tag_info[0] %}
+              {% set color = tag_info[1] %}
+              {% set name = tag_info[2] %}
+              <a href="tags/{{id}}/edit" class="tag {{color}}-tag">{{name}}</a>
+              {% endfor %}
+                <!-- <a href="/create-new-tag" class="tag orange-tag">orange</a>
+                <a href="/create-new-tag" class="tag yellow-tag">yellow</a> -->
+            </td>
+          </tr>
+          {% endfor %}
+          <tr>
             <!-- <th scope="row">1</th> -->
             <td>12:56</td>
             <td><a href="/tasks/1" class="task-title">Read ch. 6 of econ textbook</a></td>
