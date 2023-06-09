@@ -82,15 +82,24 @@ def add_tag():
 
 
 @app.route('/tags', methods=['GET'])
-# @login_required
+@login_required
 def tag_list():
     username=session.get('username')
     # tags = [(0,'red','school'),(1,'purple','purple'),(2,'','home'),(3,'orange','orange')]
     tags = get_all_tags(username)
     return render_template('tags.html',tags=tags,username=username)
 
+@app.route('/tags/<tag_id>/', methods=['GET'])
+@login_required
+def tasks_with_tag(tag_id):
+    username = session.get('username')
+    tasks = get_all_tasks_by_tags(username,(int(tag_id),))
+    print(f'{tasks = }')
+    main_tag = get_tag_info(tag_id)
+    return render_template('queried-tasks.html',username=username,tasks=tasks,main_tag=main_tag)
+
 @app.route('/tags/<tag_id>/edit', methods=['GET','POST'])
-# @login_required
+@login_required
 def edit_tag(tag_id):
     username=session.get('username')
     if request.method == 'POST':

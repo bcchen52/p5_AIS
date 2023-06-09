@@ -82,6 +82,22 @@ def get_all_tasks(username):
         tasks.append(task_dict)
     return tasks
 
+def get_all_tasks_by_tags(username,tags):
+    all_tasks = get_all_tasks(username)
+    print(f'{all_tasks = }')
+    print(f'{tags = }')
+    tasks = []
+    for task in all_tasks:
+        print(task['tags'])
+        for tag in task['tags']:
+            # print(tag)
+            tag_id = tag[0]
+            print(f'{tag_id = }')
+            if tag_id in tags:
+                tasks.append(task)
+                break
+    return tasks
+
 # format: YYYY-MM-DDThh:mm
 def get_timestamp_tuple(timestamp_str):
     year = int(timestamp_str[:4])
@@ -152,6 +168,8 @@ def get_tag_info(tag_id):
 
 if __name__ == '__main__':
     db_table_inits()
+    print(get_all_tasks_by_tags('a',(1,)))
+
     # create_tag('a','purple','added-from-func2')
     # print(get_all_tags('a'))
     # print(get_tag_info(3))
@@ -162,7 +180,7 @@ if __name__ == '__main__':
     # print(get_timestamp_tuple('2017-06-01T08:30'))
     # print(get_timestamp_tuple('2023-06-09T01:14'))
 
-    print(get_all_tasks('a'))
+    # print(get_all_tasks('a'))
     # print(get_tags_from_csv('1,2'))
 
     # username = 'a'
