@@ -15,7 +15,7 @@ def db_close():
 
 def db_table_inits():
     c = db_connect()
-    c.execute("CREATE TABLE IF NOT EXISTS users (user_id integer primary key, username text, password text)")
+    c.execute("CREATE TABLE IF NOT EXISTS users (username text, password text)")
     c.execute("CREATE TABLE IF NOT EXISTS tags (user_id integer, color text, name text)")
     db_close()
 

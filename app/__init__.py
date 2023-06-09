@@ -4,8 +4,10 @@ from db import *
 from secrets import token_bytes
 
 app = Flask(__name__)
-app.secret_key = token_bytes(32)
-# app.secret_key = 'foo'
+# app.secret_key = token_bytes(32)
+app.secret_key = 'foo'
+
+db_table_inits()
 
 
 def login_required(f):
@@ -118,7 +120,8 @@ def register():
 
 @app.route('/logout')
 def logout():
-    session.pop('username')
+    if 'username' in session.keys():
+        session.pop('username')
     return render_template('landing.html')
 
 if __name__ == '__main__':

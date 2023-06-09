@@ -45,60 +45,40 @@
     </div>
   </nav>
   <div class="container main-body">
-    <div class="accordion" id="accordionExample">
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            Filter
-          </button>
-        </h2>
-        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            <form action="", method="POST">
-              {% for tag_info in tags%}
-              {% set tag_id = tag_info[0] %}
-              {% set color = tag_info[1] %}
-              {% set tag_name = tag_info[2] %}
-              <div class="form-check form-check-inline">
-                <input type="checkbox" class="form-check-input" id="tag-checkbox-{{loop.index}}" value="{{tag_id}}" style="margin-top: 11px;">
-                <label for="tag-checkbox-{{loop.index}}" class="form-check-label">
-                  <a class="tag {{color}}-tag">{{tag_name}}</a>
-                </label>
-              </div>
-              {% endfor %}
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <div class="container">
       <!-- <h1>Welcome back, {{username}}!</h1> -->
       <h1>Your tasks:</h1>
-      <p>
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-          Filter
-        </button>
-      </p>
-      <div class="collapse" id="collapseExample">
-        <div class="card card-body" style="width:80%">
-          <form action="", method="POST">
-            {% for tag_info in tags%}
-            {% set tag_id = tag_info[0] %}
-            {% set color = tag_info[1] %}
-            {% set tag_name = tag_info[2] %}
-            <div class="form-check form-check-inline">
-              <input type="checkbox" class="form-check-input" id="tag-checkbox-{{loop.index}}" value="{{tag_id}}" style="margin-top: 11px;">
-              <label for="tag-checkbox-{{loop.index}}" class="form-check-label">
-                <a class="tag {{color}}-tag">{{tag_name}}</a>
-              </label>
+      <br>
+      <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Filter by tag
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <form action="", method="GET">
+                {% for tag_info in tags%}
+                {% set tag_id = tag_info[0] %}
+                {% set color = tag_info[1] %}
+                {% set tag_name = tag_info[2] %}
+                <div class="form-check form-check-inline">
+                  <input type="checkbox" class="form-check-input" id="tag-checkbox-{{loop.index}}" name="{{tag_id}}" style="margin-top: 11px;">
+                  <label for="tag-checkbox-{{loop.index}}" class="form-check-label">
+                    <a class="tag {{color}}-tag">{{tag_name}}</a>
+                  </label>
+                </div>
+                {% endfor %}
+                <br>
+                <button class="btn btn-primary" type="submit">Submit</button>
+              </form>
             </div>
-            {% endfor %}
-          </form>
-        <!-- <d> -->
-          <!-- Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger. -->
+          </div>
         </div>
       </div>
+      <br>
+
       <table class="table table-hover">
         <thead>
           <tr>
