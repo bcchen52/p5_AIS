@@ -17,7 +17,19 @@ def db_table_inits():
     c = db_connect()
     c.execute("CREATE TABLE IF NOT EXISTS users (username text, password text)")
     c.execute("CREATE TABLE IF NOT EXISTS tags (user_id integer, color text, name text)")
+    c.execute("CREATE TABLE IF NOT EXISTS tasks (user_id int, title text, \
+              description text, status int, year int, month int, day int, \
+              hour int, min int, tags text)")
     db_close()
+
+def get_user_id(username):
+    c = db_connect()
+    c.execute('SELECT rowid FROM users WHERE username=?',(username,))
+    user_id = int(c.fetchone()[0])
+    # print(user_id)
+    return user_id
+
+################ LOGGING IN/REGISTERING ###############
 
 def check_if_username_avaliable(username):
     c = db_connect()
@@ -42,15 +54,12 @@ def check_credentials(username, password):
     # print(username_status)
     return username_status != None
 
-# def db_tags_inits():
-#     c = db_connect()
-#     c.execute("CREATE TABLE IF NOT EXISTS tags (user_id integer, name text, color text)")
-#     db_close()
 
-def db_tasks_inits():
-    c = db_connect()
-    c.execute("CREATE TABLE IF NOT EXISTS tasks (user_id integer, title text, description text, status text, date text, tag_ids text)")
-    db_close()
+################### TASKS #####################
+'''
+user_id, title, description, status, 
+year, month, day, hour, min, tags
+'''
 
 def get_tasks(username):
     c = db_connect()
@@ -58,21 +67,24 @@ def get_tasks(username):
     c.execute("SELECT * from tasks where user_id = ?",(user_id))
     db_close()
 
-def make_task(username, title, description, date, tag_id):
-    c = db_connect()
+# format: YYYY-MM-DDThh:mm
+def get_timestamp_tuple(timestamp_str):
+    year = int(timestamp_str[:4])
+    month = int(timestamp_str[5:7])
+    day = int(timestamp_str[8:10])
+    hour = int(timestamp_str[11:13])
+    minute = int(timestamp_str[14:16])
+    return (year,month,day,hour,minute)
+
+def create_new_task(username, title, timestamp_str, status, tags, description):
     user_id = get_user_id(username)
-    c.execute("insert into tags values (?,?,?,?,?,?)",(user_id, title, description, "incomplete", date, tag_id))
-    db_close()
-
-
-def get_user_id(username):
+    # print(f'{date = }')
+    # print(f'{tags = }')
+    timestamp = get_timestamp_tuple(timestamp_str)
     c = db_connect()
-    c.execute('SELECT rowid FROM users WHERE username=?',(username,))
-    user_id = int(c.fetchone()[0])
-    # print(user_id)
-    return user_id
-
-
+    c.execute('INSERT INTO tasks VALUES (?,?,?,?,?,?,?,?,?,?)', \
+              (user_id, title, description, status, *timestamp, tags))
+    db_close()
 
 ##################### TAGS ########################
 
@@ -123,3 +135,23 @@ if __name__ == '__main__':
     # print(get_tag_info(4))
 
     # update_tag('green','green-tag',5)
+
+    print(get_timestamp_tuple('2017-06-01T08:30'))
+    print(get_timestamp_tuple('2023-06-09T01:14'))
+
+    # username = 'a'
+    # user_id = get_user_id(username)
+    # title = 'title in db'
+    # description = 'desc in db'
+    # status = 1
+    # timestamp = (2023,6,14,15,8)
+    # tags = '12380,19203'
+
+    # timestamp_str = '2023-06-09T01:14'
+
+    # create_new_task(username, title, timestamp_str, status, tags, description)
+
+    # c = db_connect()
+    # c.execute('INSERT INTO tasks VALUES (?,?,?,?,?,?,?,?,?,?)', \
+    #           (user_id, title, description, status, *timestamp, tags))
+    # db_close()

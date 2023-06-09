@@ -29,12 +29,29 @@ def home():
     tags = get_all_tags(username)
     return render_template('home.html',username=username,tags=tags)
 
+def get_tag_csv(tag_ids):
+    csv_str = ''
+    for id in tag_ids:
+        csv_str += f'{id},'
+    return csv_str[:-1]
+
 @app.route('/create-new-task', methods=['GET','POST'])
-# @login_required
+@login_required
 def add_task():
-    # if request.method == 'POST':
-    #     print(f'{request.form = }')
-    return render_template('create-task.html',username=session.get('username'))
+    username = session.get('username')
+    tags = get_all_tags(username)
+    if request.method == 'POST':
+        print(f'{request.form = }')
+        title = request.form['title']
+        timestamp_str = request.form['due-date']
+        status = int(request.form['status'])
+        description = request.form['description']
+        tag_ids = request.form.getlist('tag-checkbox')
+        csv_tags = get_tag_csv(tag_ids)
+        print(f'{csv_tags = }')
+        # print(request.form.getlist('tag-checkbox'))
+        create_new_task(username, title, timestamp_str, status, csv_tags, description)
+    return render_template('create-task.html',username=session.get('username'),tags=tags)
 
 @app.route('/tasks/<task_id>/edit', methods=['GET','POST'])
 @login_required
