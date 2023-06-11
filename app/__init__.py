@@ -57,17 +57,30 @@ def add_task():
 @app.route('/tasks/<task_id>/edit', methods=['GET','POST'])
 @login_required
 def edit_task(task_id):
-    # if request.method == 'POST':
-    #     print(f'{request.form = }')
-    return render_template('edit-task.html',task_id=task_id,username=session.get('username'))
+    username = session.get('username')
+    tags = get_all_tags(username)
+    task_info = get_task_info_from_id(task_id)
+    if request.method == 'POST':
+        print(f'{request.form = }')
+        title = request.form['title']
+        timestamp_str = request.form['due-date']
+        status = int(request.form['status'])
+        description = request.form['description']
+        tag_ids = request.form.getlist('tag-checkbox')
+        csv_tags = get_tag_csv(tag_ids)
+        print(f'{csv_tags = }')
+        change_task(task_id, title, timestamp_str, status, csv_tags, description)
+        return redirect(f'/tasks/{task_id}')
+    return render_template('edit-task.html',task=task_info,tags=tags)
 
 @app.route('/tasks/<task_id>', methods=['GET','POST'])
 @login_required
 def view_task(task_id):
-    title = 'test task'
+    task_info = get_task_info_from_id(task_id)
+    return render_template('view-task.html',username=session.get('username'),task=task_info)
+    # title = 'test task'
     # description = 'this is a test task\nafter a newline'
-    description = ['this is a test task','after a newline']
-    return render_template('view-task.html',title=title,description=description,username=session.get('username'))
+    # description = ['this is a test task','after a newline']
 
 @app.route('/create-new-tag', methods=['GET','POST'])
 # @login_required

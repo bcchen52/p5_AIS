@@ -97,7 +97,7 @@
             <!-- <th scope="row">2</th> -->
             <!-- <p>{{task}}</p> -->
             <td>{{task['due-date']}}</td>
-            <td>{{task['title']}}</td>
+            <td><a href="/tasks/{{task['task_id']}}" class="">{{task['title']}}</a></td>
             <td>
               <span class="badge bg-primaryary status-{{status_class}}">{{task['status-name']}}</span>
             </td>

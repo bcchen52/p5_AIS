@@ -64,6 +64,27 @@ year, month, day, hour, min, tags
 STATUS_NAMES = ['not started','in progress','completed']
 STATUS_CLASSES = ['not-started','in-progress','completed']
 
+def get_task_info(row):
+    task_dict = dict()
+    task_dict['task_id'] = row[0]
+    task_dict['title'] = row[2]
+    task_dict['description'] = row[3]
+    task_dict['status-name'] = STATUS_NAMES[row[4]]
+    task_dict['status-class'] = STATUS_CLASSES[row[4]]
+    task_dict['status'] = row[4]
+    task_dict['due-date'] = f'{row[5]:04d}-{row[6]:02d}-{row[7]:02d} {row[8]:02d}:{row[9]:02d}'
+    task_dict['tags'] = get_tags_from_csv(row[10])
+    # task_dict['tag_ids'] = tuple(map(int,row[10].split(',')))
+    return task_dict
+
+def get_task_info_from_id(task_id):
+    c = db_connect()
+    c.execute("SELECT rowid,* from tasks where rowid=?",(task_id,))
+    row = c.fetchone()
+    db_close()
+    # print(row)
+    return get_task_info(row)
+
 def get_all_tasks(username):
     c = db_connect()
     user_id = get_user_id(username)
@@ -72,13 +93,7 @@ def get_all_tasks(username):
     db_close()
     tasks = []
     for row in raw_tasks:
-        task_dict = dict()
-        task_dict['task_id'] = row[0]
-        task_dict['title'] = row[2]
-        task_dict['status-name'] = STATUS_NAMES[row[4]]
-        task_dict['status-class'] = STATUS_CLASSES[row[4]]
-        task_dict['due-date'] = f'{row[5]}-{row[6]}-{row[7]} {row[8]}:{row[9]}'
-        task_dict['tags'] = get_tags_from_csv(row[10])
+        task_dict = get_task_info(row)
         tasks.append(task_dict)
     return tasks
 
@@ -116,6 +131,19 @@ def create_new_task(username, title, timestamp_str, status, tags, description):
     c.execute('INSERT INTO tasks VALUES (?,?,?,?,?,?,?,?,?,?)', \
               (user_id, title, description, status, *timestamp, tags))
     db_close()
+
+def change_task(task_id, title, timestamp_str, status, tags, description):
+    # user_id = get_user_id(username)
+    timestamp = get_timestamp_tuple(timestamp_str)
+    c = db_connect()
+    # c.execute('REPLACE INTO tasks VALUES (?,?,?,?,?,?,?,?,?,?)', \
+    #         (user_id, title, description, status, *timestamp, tags))
+    c.execute('UPDATE tasks SET title=?, \
+              description=?, status=?, year=?, month=?, day=?, \
+              hour=?, min=?, tags=? WHERE rowid=?', \
+              (title, description, status, *timestamp, tags,task_id))
+    db_close()
+
 
 ##################### TAGS ########################
 
@@ -168,7 +196,8 @@ def get_tag_info(tag_id):
 
 if __name__ == '__main__':
     db_table_inits()
-    print(get_all_tasks_by_tags('a',(1,)))
+    # print(get_all_tasks_by_tags('a',(1,)))
+    print(get_task_info_from_id(6))
 
     # create_tag('a','purple','added-from-func2')
     # print(get_all_tags('a'))
