@@ -68,6 +68,7 @@ def get_task_info(row):
     task_dict = dict()
     task_dict['task_id'] = row[0]
     task_dict['title'] = row[2]
+    # task_dict['description'] = row[3].replace('\n', '<br>')
     task_dict['description'] = row[3]
     task_dict['status-name'] = STATUS_NAMES[row[4]]
     task_dict['status-class'] = STATUS_CLASSES[row[4]]
@@ -144,6 +145,10 @@ def change_task(task_id, title, timestamp_str, status, tags, description):
               (title, description, status, *timestamp, tags,task_id))
     db_close()
 
+def delete_task(task_id):
+    c = db_connect()
+    c.execute('DELETE FROM tasks WHERE rowid=?',(task_id,))
+    db_close()
 
 ##################### TAGS ########################
 
@@ -168,6 +173,8 @@ def update_tag(color,name,tag_id):
     db_close()
 
 def get_tags_from_csv(tags_csv):
+    if tags_csv == '':
+        return []
     tags = []
     str_tag_ids = tags_csv.split(',')
     # print(str_tag_ids)
@@ -198,33 +205,3 @@ if __name__ == '__main__':
     db_table_inits()
     # print(get_all_tasks_by_tags('a',(1,)))
     print(get_task_info_from_id(6))
-
-    # create_tag('a','purple','added-from-func2')
-    # print(get_all_tags('a'))
-    # print(get_tag_info(3))
-    # print(get_tag_info(4))
-
-    # update_tag('green','green-tag',5)
-
-    # print(get_timestamp_tuple('2017-06-01T08:30'))
-    # print(get_timestamp_tuple('2023-06-09T01:14'))
-
-    # print(get_all_tasks('a'))
-    # print(get_tags_from_csv('1,2'))
-
-    # username = 'a'
-    # user_id = get_user_id(username)
-    # title = 'title in db'
-    # description = 'desc in db'
-    # status = 1
-    # timestamp = (2023,6,14,15,8)
-    # tags = '12380,19203'
-
-    # timestamp_str = '2023-06-09T01:14'
-
-    # create_new_task(username, title, timestamp_str, status, tags, description)
-
-    # c = db_connect()
-    # c.execute('INSERT INTO tasks VALUES (?,?,?,?,?,?,?,?,?,?)', \
-    #           (user_id, title, description, status, *timestamp, tags))
-    # db_close()

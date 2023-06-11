@@ -81,11 +81,11 @@
 
       <table class="table table-hover">
         <thead>
-          <tr>
-            <th scope="col">Due date</th>
-            <th scope="col">Title</th>
-            <th scope="col">Status</th>
-            <th scope="col">Tags</th>
+          <t class="d-flex">
+            <th class="col-3">Due date</th>
+            <th class="col-4">Title</th>
+            <th class="col-1">Status</th>
+            <th class="col-4">Tags</th>
             <!-- <th scope="col">Handle</th> -->
           </tr>
         </thead>
@@ -93,11 +93,12 @@
           {% for task in tasks %}
           {% set status_class = task['status-class'] %}
           {% set tags = task['tags'] %}
+          <a href="/tasks/{{task['task_id']}}">
           <tr>
             <!-- <th scope="row">2</th> -->
             <!-- <p>{{task}}</p> -->
             <td>{{task['due-date']}}</td>
-            <td><a href="/tasks/{{task['task_id']}}" class="">{{task['title']}}</a></td>
+            <td><a href="/tasks/{{task['task_id']}}" class="task-title">{{task['title']}}</a></td>
             <td>
               <span class="badge bg-primaryary status-{{status_class}}">{{task['status-name']}}</span>
             </td>
@@ -112,6 +113,7 @@
                 <a href="/create-new-tag" class="tag yellow-tag">yellow</a> -->
             </td>
           </tr>
+        </a>
           {% endfor %}
         </tbody>
       </table>

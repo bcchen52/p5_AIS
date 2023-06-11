@@ -52,9 +52,10 @@ def add_task():
         print(f'{csv_tags = }')
         # print(request.form.getlist('tag-checkbox'))
         create_new_task(username, title, timestamp_str, status, csv_tags, description)
+        return redirect('/')
     return render_template('create-task.html',username=session.get('username'),tags=tags)
 
-@app.route('/tasks/<task_id>/edit', methods=['GET','POST'])
+@app.route('/tasks/<task_id>/edit/', methods=['GET','POST'])
 @login_required
 def edit_task(task_id):
     username = session.get('username')
@@ -70,12 +71,16 @@ def edit_task(task_id):
         csv_tags = get_tag_csv(tag_ids)
         print(f'{csv_tags = }')
         change_task(task_id, title, timestamp_str, status, csv_tags, description)
-        return redirect(f'/tasks/{task_id}')
+        return redirect(f'/tasks/{task_id}/')
     return render_template('edit-task.html',task=task_info,tags=tags)
 
-@app.route('/tasks/<task_id>', methods=['GET','POST'])
+@app.route('/tasks/<task_id>/', methods=['GET','POST'])
 @login_required
 def view_task(task_id):
+    if request.method == 'POST':
+        print(f'{request.form = }')
+        delete_task(task_id)
+        return redirect('/')
     task_info = get_task_info_from_id(task_id)
     return render_template('view-task.html',username=session.get('username'),task=task_info)
     # title = 'test task'
