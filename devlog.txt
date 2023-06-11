@@ -49,3 +49,10 @@ mayaM -- 2023-06-07 10:04
 - user can update and edit tags
 - homepage displays all tags in filters
 ==============================================================
+mayaM -- 2023-06-09 11:57
+--------------------------------------------------------------
+- improved login and register page
+- form to add task actually adds them to database
+- home page displays the all of the user's tasks
+- clicking on a tag shows all tasks with that tag
+==============================================================

@@ -46,9 +46,9 @@
   </nav>
   <div class="container main-body">
     <div class="container">
-      <h1>Your tasks:</h1>
-      <br>
-      <p>{{main_tag}}</p>
+      {% set main_tag_color = main_tag[1] %}
+      {% set main_tag_name = main_tag[2] %}
+      <h1>Your tasks with: <a class="tag {{main_tag_color}}-tag big-tag">{{main_tag_name}}</a></h1>
       <br>
 
       <table class="table table-hover">
