@@ -28,7 +28,16 @@ def home():
     # tags = [(0,'red','school'),(1,'purple','purple'),(2,'','home'),(3,'orange','orange')]
     tags = get_all_tags(username)
     tasks = get_all_tasks(username)
+
+    checked_values = request.form.getlist('checkboxes')
+    if checked_values: 
+        tasks = get_tasks_with_tag(checked_values)
     return render_template('home.html',username=username,tags=tags,tasks=tasks)
+
+@app.route('/process_form', methods=['POST'])
+def process_form():
+    checked_values = request.form.getlist('checkboxes')
+    return ', '.join(checked_values)
 
 def get_tag_csv(tag_ids):
     csv_str = ''

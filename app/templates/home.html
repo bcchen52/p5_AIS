@@ -58,13 +58,13 @@
           </h2>
           <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
             <div class="accordion-body">
-              <form action="", method="GET">
+              <form action="/", method="POST">
                 {% for tag_info in tags%}
                 {% set tag_id = tag_info[0] %}
                 {% set color = tag_info[1] %}
                 {% set tag_name = tag_info[2] %}
                 <div class="form-check form-check-inline">
-                  <input type="checkbox" class="form-check-input" id="tag-checkbox-{{loop.index}}" name="{{tag_id}}" style="margin-top: 11px;">
+                  <input type="checkbox" class="form-check-input" id="tag-checkbox-{{loop.index}}" name="checkboxes" value="{{tag_id}}" style="margin-top: 11px;">
                   <label for="tag-checkbox-{{loop.index}}" class="form-check-label">
                     <a class="tag {{color}}-tag">{{tag_name}}</a>
                   </label>
@@ -78,7 +78,7 @@
         </div>
       </div>
       <br>
-
+            
       <table class="table table-hover">
         <thead>
           <t class="d-flex">

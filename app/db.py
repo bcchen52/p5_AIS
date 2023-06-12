@@ -150,6 +150,17 @@ def delete_task(task_id):
     c.execute('DELETE FROM tasks WHERE rowid=?',(task_id,))
     db_close()
 
+def exist_task(task_title):
+    c = db_connect()
+    c.execute('SELECT title FROM tasks WHERE title=?',(task_title,))
+    ans = c.fetchall()
+    db_close()
+    try:
+        a = ans[0]
+        return True
+    except: 
+        return False
+
 ##################### TAGS ########################
 
 def check_tag(username, tag_name):
@@ -198,10 +209,27 @@ def get_tag_info(tag_id):
     tag_info = c.fetchone()
     db_close()
     return tag_info
-    
 
+def get_tasks_with_tag(tag_id):
+    c = db_connect()
+    raw_tasks = []
+    for a in tag_id:
+        c.execute('SELECT rowid,* FROM tasks WHERE tags LIKE ?;',('%'+a+'%',))
+        b = c.fetchall()
+        raw_tasks += b
+    db_close()
 
-if __name__ == '__main__':
-    db_table_inits()
-    # print(get_all_tasks_by_tags('a',(1,)))
-    print(get_task_info_from_id(6))
+    tasks = []
+    for row in raw_tasks:
+        task_dict = get_task_info(row)
+        tasks.append(task_dict)
+    return tasks
+
+# print(get_tasks_with_tag("[1,2]"))
+# print()
+# print(get_all_tasks('a'))
+
+# if __name__ == '__main__':
+#     db_table_inits()
+#     # print(get_all_tasks_by_tags('a',(1,)))
+#     print(get_task_info_from_id(6))
