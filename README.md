@@ -1,2 +1,2 @@
 # Task Manager for People by AIS
-by Brian 
+by Brian, Maya, Wilson, Craig
