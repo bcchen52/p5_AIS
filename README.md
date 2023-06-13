@@ -8,10 +8,10 @@ Wilson: Flask, JS
 Task Manager with editable tasks and filterable tags. Create and change status of tasks. 
 
 ## Launch Codes
-##How to Clone/Install:
+## How to Clone/Install:
 Run git clone git@github.com:bcchen52/p5_AIS.git
 
-##How to Run
+## How to Run
 Access the site at 68.183.127.123 OR
 
 Clone the repository
