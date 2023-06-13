@@ -4,8 +4,8 @@ from db import *
 from secrets import token_bytes
 
 app = Flask(__name__)
-# app.secret_key = token_bytes(32)
-app.secret_key = 'foo'
+app.secret_key = token_bytes(32)
+# app.secret_key = 'foo'
 
 db_table_inits()
 
@@ -35,6 +35,7 @@ def home():
     return render_template('home.html',username=username,tags=tags,tasks=tasks)
 
 @app.route('/process_form', methods=['POST'])
+@login_required
 def process_form():
     checked_values = request.form.getlist('checkboxes')
     return ', '.join(checked_values)
@@ -97,7 +98,7 @@ def view_task(task_id):
     # description = ['this is a test task','after a newline']
 
 @app.route('/create-new-tag', methods=['GET','POST'])
-# @login_required
+@login_required
 def add_tag():
     username=session.get('username')
     if request.method == 'POST':
