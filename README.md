@@ -1,1 +1,1 @@
-# Task Manager for People by AI
+# Task Manager for People by AIS
