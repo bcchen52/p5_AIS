@@ -1,7 +1,9 @@
 # Task Manager for People by AIS
-by Brian, Maya, Wilson, Craig
+by Brian, Maya, Wilson, Craig  
 
-
+This site organizes tasks into a to-do list delegated to completed, 
+in progress and not started. Users can create tags and customize 
+their colors to query tasks by their tag.
 
 ## Launch codes
 1. Clone this repo

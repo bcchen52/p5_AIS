@@ -78,4 +78,11 @@ Wilson-- 2023-06-11 22:00
 - added find if task exists
 - added get tasks by tags
 - got filter by tags to work
+=========================================+====================
+mayaM -- 2023-06-13 7:27
+--------------------------------------------------------------
+- updated readme
+- updated design doc with
+    - new roles
+    - HTML and JS file names
 ==============================================================
