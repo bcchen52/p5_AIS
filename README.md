@@ -15,12 +15,11 @@ Access the site at [68.183.12.123](68.183.12.123) OR
 
 ## Launch codes
 ### How to Clone/Install:
-Run `git clone git@github.com:bcchen52/p5_AIS.git`  
-1. Clone this repo
+1. Run `git clone git@github.com:bcchen52/p5_AIS.git`to clone this repo
 1. Get the requirements by running `pip install -r requirements.txt`
 1. `cd path_to_repo/app`
 1. Run `python3 __init__.py`
-1. Open http://127.0.0.1:5000
+1. Open http://127.0.0.1:5000 in your favorite browser!
 
 
 ## Roles
